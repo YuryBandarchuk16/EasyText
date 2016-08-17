@@ -20,6 +20,7 @@ public class Main extends Application {
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> Platform.exit());
         SynonymFinder synonymFinder = new SynonymFinder();
+        System.out.println(synonymFinder.findSynonym("plethora"));
 
     }
 
