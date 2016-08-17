@@ -10,6 +10,6 @@ public class TextModifyingController {
     private Button updateTextButton, backButton;
 
     @FXML
-    private TextArea inputTextArea, outputTextArea
+    private TextArea inputTextArea, outputTextArea;
 
 }
