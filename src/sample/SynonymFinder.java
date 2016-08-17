@@ -27,8 +27,8 @@ public class SynonymFinder {
         trieOfFrecuencyRoot = new TrieOfFrecuency();
         trieOfSynonymsRoot = new TrieOfSynonyms();
         loadFrecuency("resourses/freq.txt"); // 20 000 most frequent words based on Google research
-        loadFrecuency("resourses/freq-usa.txt"); // most frequent words using American spelling
-        loadSynonyms("resourses/synonyms.txt");
+        loadFrecuency("resourses/freq-usa.txt"); // 20 000 most frequent words using American spelling
+        loadSynonyms("resourses/syn.txt");
 
     }
 
@@ -38,7 +38,19 @@ public class SynonymFinder {
         printWriter.close();
     }
 
-    public String findSynonym(String word) throws Exception {
+    public String getSynonym(String word) throws Exception {
+        word = word.toLowerCase();
+        Trie trieNode = trieOfSynonymsRoot.getEndingNode(word);
+        if (trieNode == null) {
+            return findSynonym(word);
+        } else if (trieNode.ends == false) {
+            return findSynonym(word);
+        } else {
+            return trieNode.synonym;
+        }
+    }
+
+    private String findSynonym(String word) throws Exception {
         String answer = null;
         int answerPriority = Integer.MAX_VALUE;
         Trie trieNode = trieOfFrecuencyRoot.getEndingNode(word);
@@ -46,7 +58,8 @@ public class SynonymFinder {
             answer = word;
             answerPriority = trieNode.priority;
         }
-        if (answerPriority <= -13000) {
+        if (answerPriority <= 5000) {
+            trieOfSynonymsRoot.addString(word, answer);
             upWrite("resourses/syn.txt", word + "-" + answer);
             return word;
         }
@@ -125,7 +138,10 @@ public class SynonymFinder {
         }
         if (answer != null) {
             upWrite("resourses/syn.txt", word + "-" + answer);
+        } else {
+            answer = word;
         }
+        trieOfSynonymsRoot.addString(word, answer);
         return answer;
     }
 
@@ -163,8 +179,11 @@ public class SynonymFinder {
         }
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String nextWord;
-        String[] words = new String[2];
+        String[] words;
         while ((nextWord = bufferedReader.readLine()) != null) {
+            if (!nextWord.contains("-")) {
+                continue;
+            }
             words = nextWord.split("-");
             trieOfSynonymsRoot.addString(words[0], words[1]);
         }

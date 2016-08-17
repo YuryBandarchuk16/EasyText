@@ -10,18 +10,18 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static Stage primaryStage;
+    public static Engine engine;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        engine = new Engine();
         this.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
         primaryStage.setTitle("Main menu");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> Platform.exit());
-        SynonymFinder synonymFinder = new SynonymFinder();
-        System.out.println(synonymFinder.findSynonym("plethora"));
-
+        //SynonymFinder synonymFinder = new SynonymFinder();
     }
 
     public static void close() {
@@ -39,6 +39,7 @@ public class Main extends Application {
                 }
             }
         });
+        close();
     }
 
 
