@@ -1,6 +1,12 @@
 package sample;
 
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.io.*;
+import java.util.ArrayList;
 
 public class SynonymFinder {
 
@@ -11,8 +17,10 @@ public class SynonymFinder {
 
      */
 
+    private PrintWriter printWriter;
     private TrieOfSynonyms trieOfSynonymsRoot = null;
     private TrieOfFrecuency trieOfFrecuencyRoot = null;
+    private static final String REQUEST_URL = "http://thesaurus.altervista.org/thesaurus/v1?";
     private static final String MY_API_KEY = "zyQOWZsKlGVzWBGhc47S"; // "Thesaurus" API KEY
 
     SynonymFinder() throws IOException {
@@ -20,6 +28,79 @@ public class SynonymFinder {
         trieOfSynonymsRoot = new TrieOfSynonyms();
         loadFrecuency("resourses/freq.txt"); // 20 000 most frequent words based on Google research
         loadFrecuency("resourses/freq-usa.txt"); // most frequent words using American spelling
+        loadSynonyms("resourses/synonyms.txt");
+
+    }
+
+    private void upWrite(String fileName, String what) throws FileNotFoundException {
+        printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName, true)));
+        printWriter.println(what);
+        printWriter.close();
+    }
+
+    public String findSynonym(String word) throws Exception {
+        String answer = null;
+        int answerPriority = Integer.MAX_VALUE;
+        HTTPConnection httpConnection = new HTTPConnection(REQUEST_URL + "word=" + word + "&language=en_US&key=" + MY_API_KEY + "&output=json"); // make request to get some synonyms
+        ArrayList<String> result = httpConnection.makeRequest();
+        JSONParser parser = new JSONParser();
+        for (String s : result) {
+            JSONObject mainObject = (JSONObject)parser.parse(s);
+            if (mainObject.containsKey("response") == false) {
+                continue;
+            }
+            JSONArray array = (JSONArray)mainObject.get("response");
+            JSONObject firstElement = (JSONObject)array.get(0);
+            String myCategory = "#";
+            if (firstElement != null && firstElement.containsKey("category")) {
+                myCategory = (String) firstElement.get("category");
+            }
+            for (Object _elemement : array) {
+                JSONObject element = (JSONObject)_elemement;
+                if (element.containsKey("category")) {
+                    String value = (String)element.get("category");
+                    if (value.equals(myCategory)) {
+                        if (element.containsKey("synonyms")) {
+                            String synValue = (String)element.get("synonyms");
+                            String[] words;
+                            if (synValue.contains("|")) {
+                                words = synValue.split("|");
+                            } else {
+                                words = new String[0];
+                                words[0] = synValue;
+                            }
+                            for (String wordFromWords : words) {
+                                Trie trieNode = trieOfFrecuencyRoot.getEndingNode(wordFromWords);
+                                if (trieNode != null) {
+                                    if (trieNode.priority > answerPriority) {
+                                        answer = wordFromWords;
+                                        answerPriority = trieNode.priority;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (answer != null) {
+            upWrite("resourses/syn.txt", word + "-" + answer);
+        }
+        return answer;
+    }
+
+    private void loadSynonyms(String fileName) throws IOException {
+        File file = new File(fileName);
+        if (file.exists() == false) {
+            return;
+        }
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        String nextWord;
+        String[] words = new String[2];
+        while ((nextWord = bufferedReader.readLine()) != null) {
+            words = nextWord.split("-");
+            trieOfSynonymsRoot.addString(words[0], words[1]);
+        }
     }
 
     private void loadFrecuency(String fileName) throws IOException {
