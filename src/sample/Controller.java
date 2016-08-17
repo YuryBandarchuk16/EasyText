@@ -15,7 +15,7 @@ public class Controller {
 
     @FXML
     private void openSynonymsWindow() {
-
+        Main.runAddingSynonyms();
     }
 
     @FXML

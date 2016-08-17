@@ -205,4 +205,23 @@ public class SynonymFinder {
         }
     }
 
+    public void addPair(String a, String b) throws FileNotFoundException {
+        if (a.contains("-")) return;
+        if (b.contains("-")) return;
+        for (int i = 0; i < a.length(); i++) {
+            char c = a.charAt(i);
+            boolean f = (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+            if (!f) return;
+        }
+        for (int i = 0; i < b.length(); i++) {
+            char c = b.charAt(i);
+            boolean f = (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+            if (!f) return;
+        }
+        Trie trieNode = trieOfSynonymsRoot.getEndingNode(a);
+        if (trieNode == null) {
+            trieOfSynonymsRoot.addString(a, b);
+            upWrite("resourses/syn.txt", a + "-" + b);
+        }
+    }
 }

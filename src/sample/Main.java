@@ -46,4 +46,17 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    public static void runAddingSynonyms() {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                try {
+                    new AddSynonymsWindow().start(new Stage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        close();
+    }
 }

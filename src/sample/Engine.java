@@ -1,5 +1,6 @@
 package sample;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Engine {
@@ -26,6 +27,10 @@ public class Engine {
         if (c >= 'A' && c <= 'Z') return c;
         int id = (int)c - (int)'a';
         return (char)(id + (int)'A');
+    }
+
+    public void addPairOfSynonyms(String a, String b) throws FileNotFoundException {
+        synonymFinder.addPair(a, b);
     }
 
     public String update(String text, boolean alignment) throws Exception {
