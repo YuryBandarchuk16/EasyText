@@ -19,23 +19,13 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> Platform.exit());
-        /*Controller controller = new Controller();
-        controller.exitButton = new Button("exitButton");
-        int nClicks = 0;
-        controller.exitButton.setOnAction(event -> {
-            System.out.println("Clicked " + 0 + " times.");
-        });
-        if (controller.exitButton == null) {
-            System.out.println("NULL!");
-        } else {
-            System.out.println("Everything is ok!");
-        }*/
     }
 
     public static void close() {
-        primaryStage.close();
+        primaryStage.close(); // used for closing the application
     }
 
+    /* Used to run the window for text modifying */
     public static void runTextModifyingWindow() {
         Platform.runLater(new Runnable() {
             public void run() {

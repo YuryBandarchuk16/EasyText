@@ -10,7 +10,7 @@ public class Controller {
 
     @FXML
     private void exitApplication() {
-        Main.close();
+        Main.close(); // close the window
     }
 
     @FXML
@@ -20,7 +20,7 @@ public class Controller {
 
     @FXML
     private void openTextModifyingWindow() {
-        Main.runTextModifyingWindow();
+        Main.runTextModifyingWindow(); // open the window which is responsible for text modifying
     }
 
 }
