@@ -5,6 +5,17 @@ their synonyms. This app will help you!
 
 Sometimes it does not work correctly, but usually it replaces the words with their synonyms well.
 
+The algortithm is the following:
+
+  The application has two files: a file of synonyms and a file with the most common words (nearly abour 30 000 words).
+  
+  After starting the application all words are added to Trie Data Structure.
+
+  Iterating over the words from the input. Then for each word if we have a synonym in local base just replace it. 
+  
+  Otherwise making a request to Thesaurus dictionary, which return a list of synonyms. Take the synonym which has the largest frequency rating and make a pair of synonyms.
+
+
 📝Sample input:
   plethora
   accretion
