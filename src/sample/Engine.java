@@ -28,8 +28,9 @@ public class Engine {
         return (char)(id + (int)'A');
     }
 
-    public String update(String text) throws Exception {
+    public String update(String text, boolean alignment) throws Exception {
         text += " ";
+        int buffer = 0;
         StringBuilder stringBuilder = new StringBuilder();
         StringBuilder currentWord = new StringBuilder();
         int textLength = text.length();
@@ -51,11 +52,17 @@ public class Engine {
                         toSend = toUpper(toSend.charAt(0)) + toSend.substring(1);
                     }
                     stringBuilder.append(toSend);
+                    buffer += toSend.length();
                 }
                 if (index + 1 == textLength) {
                     continue;
                 }
                 stringBuilder.append(symbol);
+                buffer++;
+                if (buffer >= 45 && alignment) {
+                    stringBuilder.append("\n");
+                    buffer = 0;
+                }
             }
         }
         return stringBuilder.toString();
