@@ -9,7 +9,7 @@ The algortithm is the following:
 
  - The application has two files: a file of synonyms and a file with the most common words (nearly about 30 000 words).
   
- - After starting the application all words are added to Trie Data Structure.
+ - After starting the application all words are added to HashMap. (Firstly it was Trie Data Structure, but after some tests I figured out that in average HashMap works faster).
 
  - Iterating over the words from the input. Then for each word if we have a synonym in local base just replace it. 
   
