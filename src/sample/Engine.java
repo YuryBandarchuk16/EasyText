@@ -29,8 +29,8 @@ public class Engine {
         return (char)(id + (int)'A');
     }
 
-    public void addPairOfSynonyms(String a, String b) throws FileNotFoundException {
-        synonymFinder.addPair(a, b);
+    public int addPairOfSynonyms(String a, String b) throws FileNotFoundException {
+        return synonymFinder.addPair(a, b);
     }
 
     public String update(String text, boolean alignment) throws Exception {

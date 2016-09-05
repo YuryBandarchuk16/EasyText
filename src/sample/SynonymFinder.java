@@ -18,14 +18,14 @@ public class SynonymFinder {
      */
 
     private PrintWriter printWriter;
-    private TrieOfSynonyms trieOfSynonymsRoot = null;
-    private TrieOfFrecuency trieOfFrecuencyRoot = null;
+    private HashMapOfSynonyms hashMapOfSynonyms = null;
+    private HashMapOfFrequency hashMapOfFrequency = null;
     private static final String REQUEST_URL = "http://thesaurus.altervista.org/thesaurus/v1?";
     private static final String MY_API_KEY = "zyQOWZsKlGVzWBGhc47S"; // "Thesaurus" API KEY
 
     SynonymFinder() throws IOException {
-        trieOfFrecuencyRoot = new TrieOfFrecuency();
-        trieOfSynonymsRoot = new TrieOfSynonyms();
+        hashMapOfFrequency = new HashMapOfFrequency();
+        hashMapOfSynonyms = new HashMapOfSynonyms();
         loadFrecuency("resourses/freq.txt"); // 20 000 most frequent words based on Google research
         loadFrecuency("resourses/freq-usa.txt"); // 20 000 most frequent words using American spelling
         loadSynonyms("resourses/syn.txt");
@@ -40,26 +40,24 @@ public class SynonymFinder {
 
     public String getSynonym(String word) throws Exception {
         word = word.toLowerCase();
-        Trie trieNode = trieOfSynonymsRoot.getEndingNode(word);
-        if (trieNode == null) {
-            return findSynonym(word);
-        } else if (trieNode.ends == false) {
+        boolean containtsThisWord = hashMapOfSynonyms.hasSynonymFor(word);
+        if (!containtsThisWord) {
             return findSynonym(word);
         } else {
-            return trieNode.synonym;
+            return hashMapOfSynonyms.getSynonym(word);
         }
     }
 
     private String findSynonym(String word) throws Exception {
         String answer = null;
         int answerPriority = Integer.MAX_VALUE;
-        Trie trieNode = trieOfFrecuencyRoot.getEndingNode(word);
-        if (trieNode != null) {
+        int currentPriority = hashMapOfFrequency.getPriority(word);
+        if (currentPriority != -1) {
             answer = word;
-            answerPriority = trieNode.priority;
+            answerPriority = currentPriority;
         }
         if (answerPriority <= 5000) {
-            trieOfSynonymsRoot.addString(word, answer);
+            hashMapOfSynonyms.addString(word, answer);
             upWrite("resourses/syn.txt", word + "-" + answer);
             return word;
         }
@@ -123,11 +121,11 @@ public class SynonymFinder {
                                 if (sss == null) {
                                     continue;
                                 }
-                                trieNode = trieOfFrecuencyRoot.getEndingNode(sss);
-                                if (trieNode != null) {
-                                    if (trieNode.priority < answerPriority) {
+                                int myPriority = hashMapOfFrequency.getPriority(sss);
+                                if (myPriority != -1) {
+                                    if (myPriority < answerPriority) {
                                         answer = sss;
-                                        answerPriority = trieNode.priority;
+                                        answerPriority = myPriority;
                                     }
                                 }
                             }
@@ -141,7 +139,7 @@ public class SynonymFinder {
         } else {
             answer = word;
         }
-        trieOfSynonymsRoot.addString(word, answer);
+        hashMapOfSynonyms.addString(word, answer);
         return answer;
     }
 
@@ -185,7 +183,7 @@ public class SynonymFinder {
                 continue;
             }
             words = nextWord.split("-");
-            trieOfSynonymsRoot.addString(words[0], words[1]);
+            hashMapOfSynonyms.addString(words[0], words[1]);
         }
     }
 
@@ -200,28 +198,39 @@ public class SynonymFinder {
             if (nextWord == null) {
                 break;
             } else if (nextWord.length() > 0) {
-                trieOfFrecuencyRoot.addString(nextWord, currentPriority);
+                hashMapOfFrequency.addString(nextWord, currentPriority);
             }
         }
     }
 
-    public void addPair(String a, String b) throws FileNotFoundException {
-        if (a.contains("-")) return;
-        if (b.contains("-")) return;
+    private boolean isFail(String a) {
+        if (a.contains("-")) {
+            return true;
+        }
         for (int i = 0; i < a.length(); i++) {
             char c = a.charAt(i);
             boolean f = (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
-            if (!f) return;
+            if (!f) {
+                return true;
+            }
         }
-        for (int i = 0; i < b.length(); i++) {
-            char c = b.charAt(i);
-            boolean f = (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
-            if (!f) return;
+        return false;
+    }
+
+    public int addPair(String a, String b) throws FileNotFoundException {
+        if (isFail(a)) {
+            return 1;
         }
-        Trie trieNode = trieOfSynonymsRoot.getEndingNode(a);
-        if (trieNode == null) {
-            trieOfSynonymsRoot.addString(a, b);
+        if (isFail(b)) {
+            return 1;
+        }
+        boolean containsThisString = hashMapOfSynonyms.hasSynonymFor(a);
+        if (!containsThisString) {
+            hashMapOfSynonyms.addString(a, b);
             upWrite("resourses/syn.txt", a + "-" + b);
+            return 0;
+        } else {
+            return 2;
         }
     }
 }

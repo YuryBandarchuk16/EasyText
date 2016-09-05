@@ -39,29 +39,40 @@ public class AddSynonymsWindowController {
         AddSynonymsWindow.close();
     }
 
+    private void createAlert(String textButton, String text) {
+        Stage dialogStage = new Stage();
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.setOnCloseRequest(e -> Platform.exit());
+        Button b = new Button(textButton);
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dialogStage.close();
+            }
+        });
+        dialogStage.setScene(new Scene(VBoxBuilder.create().
+                children(new Text(text), b).
+                alignment(Pos.CENTER).padding(new Insets(5)).build()));
+        dialogStage.show();
+        return;
+    }
+
     @FXML
     private void addButtonClicked() throws FileNotFoundException {
         String wordOne = firstWord.getText();
         String wordTwo = secondWord.getText();
         int minLength = Math.min(wordOne.length(), wordTwo.length());
         if (minLength == 0) {
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.setOnCloseRequest(e -> Platform.exit());
-            Button b = new Button("OK");
-            b.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    dialogStage.close();
-                }
-            });
-            dialogStage.setScene(new Scene(VBoxBuilder.create().
-                    children(new Text("Enter valid words"), b).
-                    alignment(Pos.CENTER).padding(new Insets(5)).build()));
-            dialogStage.show();
-            return;
+            createAlert("OK", "Enter valid words!");
         }
-        Main.engine.addPairOfSynonyms(wordOne, wordTwo);
+        int code = Main.engine.addPairOfSynonyms(wordOne, wordTwo);
+        if (code == 0) {
+            createAlert("OK", "Pair of synonyms has been successfully added!");
+        } else if (code == 1) {
+            createAlert("OK", "Enter valid words!");
+        } else {
+            createAlert("OK", "This word and its synonym have been already added!");
+        }
     }
 
 }
