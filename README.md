@@ -30,4 +30,4 @@ Also you can manually add pairs of synonyms.
   beauty
   address
   
-![](https://github.com/YuryBandarchuk16/EasyText/blob/master/TO_GIFFF.gif)
+![](https://github.com/YuryBandarchuk16/EasyText/blob/master/demonstration.gif)
