@@ -64,6 +64,7 @@ public class AddSynonymsWindowController {
         int minLength = Math.min(wordOne.length(), wordTwo.length());
         if (minLength == 0) {
             createAlert("OK", "Enter valid words!");
+            return;
         }
         int code = Main.engine.addPairOfSynonyms(wordOne, wordTwo);
         if (code == 0) {

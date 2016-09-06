@@ -328,9 +328,9 @@ abstruse-deep
 accost-address
 accretion-increase
 admonish-counsel
-abscond-fly
-abject-down
 quaint-strange
+abject-down
+abscond-fly
 pulchritude-beauty
 obfuscate-change
-titanic-big
+titanic-huge
