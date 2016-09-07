@@ -333,4 +333,6 @@ abject-down
 abscond-fly
 pulchritude-beauty
 obfuscate-change
+adamant-adamant
+abrogate-abrogate
 titanic-huge

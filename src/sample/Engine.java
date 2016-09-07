@@ -31,6 +31,10 @@ public class Engine {
 
     private char toLower(char c) {
         if (c >= 'a' && c <= 'z') return c;
+        boolean isUpper = (toUpper(c) == c);
+        if (!isUpper) {
+            return c;
+        }
         int id = (int)c - (int)'A';
         return (char)(id + (int)'a');
     }

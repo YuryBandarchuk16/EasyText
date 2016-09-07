@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="22569ce8-0af7-447a-be0d-739ae338a16c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EasyText/sample/AddSynonymsWindow.class" afterPath="$PROJECT_DIR$/out/production/EasyText/sample/AddSynonymsWindow.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EasyText/sample/AddSynonymsWindowController$1.class" afterPath="$PROJECT_DIR$/out/production/EasyText/sample/AddSynonymsWindowController$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EasyText/sample/AddSynonymsWindowController$2.class" afterPath="$PROJECT_DIR$/out/production/EasyText/sample/AddSynonymsWindowController$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EasyText/sample/AddSynonymsWindowController.class" afterPath="$PROJECT_DIR$/out/production/EasyText/sample/AddSynonymsWindowController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EasyText/sample/Engine.class" afterPath="$PROJECT_DIR$/out/production/EasyText/sample/Engine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EasyText/sample/HashMapOfSynonyms.class" afterPath="$PROJECT_DIR$/out/production/EasyText/sample/HashMapOfSynonyms.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EasyText/sample/Main.class" afterPath="$PROJECT_DIR$/out/production/EasyText/sample/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EasyText/sample/SynonymFinder.class" afterPath="$PROJECT_DIR$/out/production/EasyText/sample/SynonymFinder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/AddSynonymsWindowController.java" afterPath="$PROJECT_DIR$/src/sample/AddSynonymsWindowController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resourses/syn.txt" afterPath="$PROJECT_DIR$/resourses/syn.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Engine.java" afterPath="$PROJECT_DIR$/src/sample/Engine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/HashMapOfSynonyms.java" afterPath="$PROJECT_DIR$/src/sample/HashMapOfSynonyms.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/SynonymFinder.java" afterPath="$PROJECT_DIR$/src/sample/SynonymFinder.java" />
     </list>
     <ignored path="EasyText.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,7 +30,7 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+              <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -51,8 +39,8 @@
       <file leaf-file-name="syn.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resourses/syn.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.63325185">
-              <caret line="328" column="18" selection-start-line="328" selection-start-column="18" selection-end-line="328" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.7432763">
+              <caret line="337" column="12" selection-start-line="337" selection-start-column="12" selection-end-line="337" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -83,11 +71,11 @@
       <file leaf-file-name="Engine.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Engine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.037037">
-              <caret line="43" column="40" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="40" />
+            <state vertical-scroll-proportion="-6.3703704">
+              <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
               <folding>
-                <element signature="e#1424#1425#0" expanded="true" />
-                <element signature="e#1480#1481#0" expanded="true" />
+                <element signature="e#1525#1526#0" expanded="true" />
+                <element signature="e#1581#1582#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -150,8 +138,8 @@
         <option value="$PROJECT_DIR$/src/sample/Main.java" />
         <option value="$PROJECT_DIR$/src/sample/HashMapOfSynonyms.java" />
         <option value="$PROJECT_DIR$/src/sample/SynonymFinder.java" />
-        <option value="$PROJECT_DIR$/src/sample/Engine.java" />
         <option value="$PROJECT_DIR$/src/sample/AddSynonymsWindowController.java" />
+        <option value="$PROJECT_DIR$/src/sample/Engine.java" />
         <option value="$PROJECT_DIR$/resourses/syn.txt" />
       </list>
     </option>
@@ -708,12 +696,12 @@
       <updated>1473068543933</updated>
       <workItem from="1473068545330" duration="3331000" />
       <workItem from="1473177433417" duration="638000" />
-      <workItem from="1473270633357" duration="3035000" />
+      <workItem from="1473270633357" duration="4346000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7004000" />
+    <option name="totallyTimeSpent" value="8315000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="721" extended-state="6" />
@@ -859,25 +847,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Engine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.037037">
-          <caret line="43" column="40" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="40" />
-          <folding>
-            <element signature="e#1424#1425#0" expanded="true" />
-            <element signature="e#1480#1481#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/AddSynonymsWindowController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -886,10 +855,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Engine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.3703704">
+          <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+          <folding>
+            <element signature="e#1525#1526#0" expanded="true" />
+            <element signature="e#1581#1582#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resourses/syn.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.63325185">
-          <caret line="328" column="18" selection-start-line="328" selection-start-column="18" selection-end-line="328" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.7432763">
+          <caret line="337" column="12" selection-start-line="337" selection-start-column="12" selection-end-line="337" selection-end-column="12" />
           <folding />
         </state>
       </provider>
