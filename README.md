@@ -13,7 +13,7 @@ The algortithm is the following:
 
  - Iterating over the words from the input. Then for each word if we have a synonym in local base just replace it. 
   
- - Otherwise making a request to Thesaurus dictionary using its API, which return a list of synonyms. Take the synonym which has the largest frequency rating and make a pair of synonyms (add to trie, to file with synonyms and etc.)
+ - Otherwise making a request to Thesaurus dictionary using its API, which returns a list of synonyms. Take the synonym which has the largest frequency rating and make a pair of synonyms (add to HashMap, to file with synonyms and etc.)
  
 Also you can manually add pairs of synonyms.
 

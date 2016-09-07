@@ -29,8 +29,31 @@ public class Engine {
         return (char)(id + (int)'A');
     }
 
+    private char toLower(char c) {
+        if (c >= 'a' && c <= 'z') return c;
+        int id = (int)c - (int)'A';
+        return (char)(id + (int)'a');
+    }
+
+    public String toLower(String s) {
+        StringBuilder stringBuilder = new StringBuilder();
+        int stringLength = s.length();
+        for (int index = 0; index < stringLength; index++) {
+            stringBuilder.append(toLower(s.charAt(index)));
+        }
+        return stringBuilder.toString();
+    }
+
     public int addPairOfSynonyms(String a, String b) throws FileNotFoundException {
         return synonymFinder.addPair(a, b);
+    }
+
+    public String getSynonym(String word) throws Exception {
+        return synonymFinder.getSynonym(word);
+    }
+
+    public void removeSynonymForWord(String word) {
+        synonymFinder.removeSynonymForWord(word);
     }
 
     public String update(String text, boolean alignment) throws Exception {

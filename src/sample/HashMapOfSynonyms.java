@@ -25,4 +25,8 @@ public class HashMapOfSynonyms {
     public String getSynonym(String word) {
         return synonyms.get(word);
     }
+
+    public void removeSynonymForWord(String word) {
+        synonyms.remove(word);
+    }
 }

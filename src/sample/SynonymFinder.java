@@ -29,7 +29,13 @@ public class SynonymFinder {
         loadFrecuency("resourses/freq.txt"); // 20 000 most frequent words based on Google research
         loadFrecuency("resourses/freq-usa.txt"); // 20 000 most frequent words using American spelling
         loadSynonyms("resourses/syn.txt");
+    }
 
+    public void removeSynonymForWord(String word) {
+        boolean contains = hashMapOfSynonyms.hasSynonymFor(word);
+        if (contains) {
+            hashMapOfSynonyms.removeSynonymForWord(word);
+        }
     }
 
     private void upWrite(String fileName, String what) throws FileNotFoundException {
@@ -40,8 +46,8 @@ public class SynonymFinder {
 
     public String getSynonym(String word) throws Exception {
         word = word.toLowerCase();
-        boolean containtsThisWord = hashMapOfSynonyms.hasSynonymFor(word);
-        if (!containtsThisWord) {
+        boolean containsThisWord = hashMapOfSynonyms.hasSynonymFor(word);
+        if (!containsThisWord) {
             return findSynonym(word);
         } else {
             return hashMapOfSynonyms.getSynonym(word);
@@ -55,6 +61,8 @@ public class SynonymFinder {
         if (currentPriority != -1) {
             answer = word;
             answerPriority = currentPriority;
+        } else {
+            answer = word;
         }
         if (answerPriority <= 5000) {
             hashMapOfSynonyms.addString(word, answer);
@@ -183,6 +191,10 @@ public class SynonymFinder {
                 continue;
             }
             words = nextWord.split("-");
+            if (hashMapOfSynonyms.hasSynonymFor(words[0])) {
+                // if we have multiple synonyms for one word, then only the last one will be used as synonym
+                hashMapOfSynonyms.removeSynonymForWord(words[0]);
+            }
             hashMapOfSynonyms.addString(words[0], words[1]);
         }
     }

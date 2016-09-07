@@ -19,6 +19,8 @@ import java.io.FileNotFoundException;
 
 public class AddSynonymsWindowController {
 
+    private int collisionResult = -1;
+
     @FXML
     private TextField firstWord, secondWord;
 
@@ -57,10 +59,53 @@ public class AddSynonymsWindowController {
         return;
     }
 
+    private void createSynonymsCollisionAlert(String wordOne, String wordTwo) {
+        Stage dialogStage = new Stage();
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.setOnCloseRequest(e -> Platform.exit());
+        Button b1 = new Button("YES");
+        b1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Main.engine.removeSynonymForWord(wordOne);
+                try {
+                    collisionResult = Main.engine.addPairOfSynonyms(wordOne, wordTwo);
+                    createAlert("OK", "This word and its synonym have been replaced!");
+                } catch (FileNotFoundException e) {
+                    collisionResult = -2;
+                    e.printStackTrace();
+                }
+                dialogStage.close();
+
+            }
+        });
+        String text = "";
+        try {
+            text = "The word " + wordOne + " has a synonym = " + Main.engine.getSynonym(wordOne) + "\n" + "Would you like to replace it?";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Button b2 = new Button("NO");
+        b2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                collisionResult = -3;
+                dialogStage.close();
+            }
+        });
+        dialogStage.setScene(new Scene(VBoxBuilder.create().
+                children(new Text(text), b1, b2).
+                alignment(Pos.CENTER).padding(new Insets(5)).build()));
+        dialogStage.show();
+    }
+
+
     @FXML
     private void addButtonClicked() throws FileNotFoundException {
         String wordOne = firstWord.getText();
         String wordTwo = secondWord.getText();
+        wordOne = Main.engine.toLower(wordOne);
+        wordTwo = Main.engine.toLower(wordTwo);
         int minLength = Math.min(wordOne.length(), wordTwo.length());
         if (minLength == 0) {
             createAlert("OK", "Enter valid words!");
@@ -72,7 +117,8 @@ public class AddSynonymsWindowController {
         } else if (code == 1) {
             createAlert("OK", "Enter valid words!");
         } else {
-            createAlert("OK", "This word and its synonym have been already added!");
+            collisionResult = -1;
+            createSynonymsCollisionAlert(wordOne, wordTwo);
         }
     }
 
