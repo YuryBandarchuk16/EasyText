@@ -7,6 +7,7 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class SynonymFinder {
 
@@ -20,6 +21,8 @@ public class SynonymFinder {
     private PrintWriter printWriter;
     private HashMapOfSynonyms hashMapOfSynonyms = null;
     private HashMapOfFrequency hashMapOfFrequency = null;
+    // when the number of duplicates is greater that this constant, file of synonyms will be rebuilt
+    private static final int MAX_AMOUNT_OF_BAD_WORDS = 100;
     private static final String REQUEST_URL = "http://thesaurus.altervista.org/thesaurus/v1?";
     private static final String MY_API_KEY = "zyQOWZsKlGVzWBGhc47S"; // "Thesaurus" API KEY
 
@@ -179,6 +182,7 @@ public class SynonymFinder {
     }
 
     private void loadSynonyms(String fileName) throws IOException {
+        int amountOfBadWords = 0; // when we have duplicates, sometimes file of synonyms has to be rebuilt
         File file = new File(fileName);
         if (file.exists() == false) {
             return;
@@ -193,9 +197,19 @@ public class SynonymFinder {
             words = nextWord.split("-");
             if (hashMapOfSynonyms.hasSynonymFor(words[0])) {
                 // if we have multiple synonyms for one word, then only the last one will be used as synonym
+                amountOfBadWords += 1;
                 hashMapOfSynonyms.removeSynonymForWord(words[0]);
             }
             hashMapOfSynonyms.addString(words[0], words[1]);
+        }
+        if (amountOfBadWords >= MAX_AMOUNT_OF_BAD_WORDS) { // the most adequate constant
+            file.delete();
+            PrintWriter localPrintWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream("resourses/syn.txt")));
+            ArrayList<String> result = hashMapOfSynonyms.getAllSynonyms();
+            for (String pairOfSynonyms : result) {
+                localPrintWriter.println(pairOfSynonyms);
+            }
+            localPrintWriter.close();
         }
     }
 
